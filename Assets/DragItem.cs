@@ -25,9 +25,6 @@ public class DragItem: MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragH
 		if(transform.GetComponent<Conveyer_item>()){
 			transform.GetComponent<Conveyer_item>().tween_cancel();
 		}
-		if(transform.GetComponent<Fan_ctrl>()){
-			transform.GetComponent<Fan_ctrl>().display_rotate_arrow();
-		}
 	}
 
 	public void OnDrag(PointerEventData eventData){
@@ -37,7 +34,10 @@ public class DragItem: MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragH
 	}
 
 	public void OnEndDrag(PointerEventData eventData)	{
-		
+		if(transform.GetComponent<Fan_ctrl>()){
+			transform.GetComponent<Fan_ctrl>().display_rotate_arrow();
+		}
+		this.enabled = false;
 	}
 
 }

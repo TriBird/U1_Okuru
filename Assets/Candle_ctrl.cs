@@ -29,7 +29,8 @@ public class Candle_ctrl : MonoBehaviour{
 	public IEnumerator candle_melt(){
 		while(true){
 			yield return new WaitForSeconds(0.1f);
-			melt_count--;
+			// melt_count--;
+			melt_count-=10;
 			
 			transform.GetComponent<Image>().fillAmount = (float)melt_count / melt_count_max;
 
@@ -39,6 +40,7 @@ public class Candle_ctrl : MonoBehaviour{
 
 			// destory condition
 			if(melt_count <= 5){
+				GameObject.Find("ScriptMaster").GetComponent<GameMaster>().score_increment(1225);
 				Destroy(gameObject);
 			}
 		}
