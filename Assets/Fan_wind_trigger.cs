@@ -14,7 +14,7 @@ public class Fan_wind_trigger: MonoBehaviour{
 			if(other.GetComponent<Candle_ctrl>().is_turn_on){
 				is_has_fire = true;
 			}else{
-				other.GetComponent<Candle_ctrl>().turn_on_candle();	
+				if(is_has_fire) other.GetComponent<Candle_ctrl>().turn_on_candle();	
 			}
 		}
 	}

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1090045168403842253}
   - component: {fileID: 260885350118544167}
   - component: {fileID: 8589050697936565213}
+  - component: {fileID: 6496595636790539046}
   - component: {fileID: 1581131123560629651}
   m_Layer: 5
   m_Name: Candle
@@ -90,7 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f06d975a48d545b439b190fa476980e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug_on: 1
+  debug_on: 0
+  is_turn_on: 0
 --- !u!114 &8589050697936565213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +103,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64a3bae8209b1e747ade6e8d7342b91f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6496595636790539046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800981940227887773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa878b7c18097b74591642ae073aaaab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!61 &1581131123560629651

@@ -9,7 +9,8 @@ public class Candle_ctrl : MonoBehaviour{
 
 	public bool debug_on = false;		// if this is true, lit candle when start the scene
 	public bool is_turn_on = false; // whether the candles are lit
-	private int melt_count = 100;
+	private int melt_count = 200;
+	private int melt_count_max = 200;
 
 	void Start(){
 		if(debug_on) debug_on_true();
@@ -30,7 +31,7 @@ public class Candle_ctrl : MonoBehaviour{
 			yield return new WaitForSeconds(0.1f);
 			melt_count--;
 			
-			transform.GetComponent<Image>().fillAmount = melt_count / 100f;
+			transform.GetComponent<Image>().fillAmount = (float)melt_count / melt_count_max;
 
 			Vector2 pos = transform.localPosition;
 			pos.y -= 1;

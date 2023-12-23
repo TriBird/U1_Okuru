@@ -14,6 +14,9 @@ public class Fan_ctrl: MonoBehaviour, IPointerClickHandler{
 	private bool is_rotate = false;
 
 	void Start(){
+	}
+
+	public void display_rotate_arrow(){
 		col = StartCoroutine(rotate_arrow());
 	}
 
