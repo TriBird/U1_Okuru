@@ -9,8 +9,8 @@ public class Candle_ctrl : MonoBehaviour{
 
 	public bool debug_on = false;		// if this is true, lit candle when start the scene
 	public bool is_turn_on = false; // whether the candles are lit
-	private int melt_count = 300;
-	private int melt_count_max = 300;
+	private int melt_count = 100;
+	private int melt_count_max = 100;
 	private Coroutine melt_down_cor;
 
 	private GameMaster master;
@@ -40,8 +40,8 @@ public class Candle_ctrl : MonoBehaviour{
 
 	public IEnumerator candle_melt(){
 		while(true){
-			yield return new WaitForSeconds(0.1f);
-			melt_count -= master.CurrentTempratureLevel;
+			yield return new WaitForSeconds(0.15f-(0.01f*master.CurrentTempratureLevel));
+			melt_count -= 1;
 			
 			transform.GetComponent<Image>().fillAmount = (float)melt_count / melt_count_max;
 
