@@ -8,14 +8,14 @@ using DG.Tweening;
 
 public class sprinkler_ctrl: MonoBehaviour{
 
-	
+	private GameMaster master;
 
 	void Start(){
 		Warning();
+		master = GameObject.Find("ScriptMaster").GetComponent<GameMaster>();
 	}
 
 	public void OnTriggerEnter2D(Collider2D other){
-		print("hit water");
 		if(other.GetComponent<Candle_ctrl>()){
 			other.GetComponent<Candle_ctrl>().turn_off_candle();
 		}
@@ -40,5 +40,6 @@ public class sprinkler_ctrl: MonoBehaviour{
 
 	public void sprinkler_on(){
 		transform.GetComponent<CircleCollider2D>().enabled = true;
+		master.audio_master.SE_Play("Water");
 	}
 }

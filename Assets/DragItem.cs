@@ -37,6 +37,7 @@ public class DragItem: MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragH
 		if(transform.GetComponent<Fan_ctrl>()){
 			transform.GetComponent<Fan_ctrl>().display_rotate_arrow();
 		}
+		GameObject.Find("ScriptMaster").GetComponent<GameMaster>().audio_master.SE_Play("Place");
 		this.enabled = false;
 	}
 

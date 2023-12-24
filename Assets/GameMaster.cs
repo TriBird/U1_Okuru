@@ -12,25 +12,26 @@ public class GameMaster : MonoBehaviour{
 	public int GameScore = 0;
 	public GameObject Candle_Prefab, Fan_Prefab, Sprinkler_Prefab;
 	public Transform Container_Trans, sprinkler_container, GameScore_Trans, Result_Trans, Temprature_gain_banner_Trans, Fire_indicator_Trans;
+	public AudioMaster audio_master = null;
 
 	private Coroutine main_routine_cor = null;
 
 	public int CurrentTempratureLevel = 1;
 
-	public List<string> titles = new List<string>(){
-		"かかし",
-		"番犬",
-		"警備員",
-		"守護者",
-		"ガーディアン",
-		"イージス",
-		"防衛機構",
+	private List<string> titles = new List<string>(){
+		"かかしゴーレム",
+		"番ゴーレム",
+		"警備ゴーレム",
+		"守護ゴーレム",
+		"ガーディアン・ゴーレム",
+		"イージス・ゴーレム",
+		"都市防衛機構",
 		"守護神",
 		"Candle Keeper",
 		"Eternal Candle Keeper",
 	};
 
-	void Start(){
+	void Awake(){
 		game_init();
 		score_increment(0);
 	}
@@ -54,6 +55,13 @@ public class GameMaster : MonoBehaviour{
 	}
 
 	public void game_init(){
+		try{
+			audio_master = GameObject.Find("AudioMaster").GetComponent<AudioMaster>();
+		}catch(System.NullReferenceException e){
+			SceneManager.LoadScene("Tutorial");
+			return;
+		}
+
 		main_routine_cor = StartCoroutine(main_routine());
 
 		Result_Trans.GetComponent<CanvasGroup>().alpha = 0;
@@ -126,7 +134,8 @@ public class GameMaster : MonoBehaviour{
 	}
 
 	public void Retry(){
-		SceneManager.LoadScene("SampleScene");
+		SceneManager.LoadScene("Main");
+		audio_master.SE_Play("Click");
 	}
 
 	public void gameover_proc(){
@@ -135,10 +144,12 @@ public class GameMaster : MonoBehaviour{
 		Result_Trans.gameObject.SetActive(true);
 		Result_Trans.GetComponent<CanvasGroup>().DOFade(1, 0.5f);
 
-		int title_number = Mathf.FloorToInt(GameScore / 10000);
+		int title_number = Mathf.FloorToInt(GameScore / 10000f);
 		if(title_number >= 10){
 			title_number = 9;
 		}
+
+		audio_master.SE_Play("Failed", 0.3f);
 
 		Result_Trans.Find("Score").GetComponent<Text>().text = "SCORE " + GameScore;
 		Result_Trans.Find("Rank").GetComponent<Text>().text = "Your rank: " + titles[title_number];
