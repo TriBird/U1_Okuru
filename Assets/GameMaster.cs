@@ -9,7 +9,7 @@ public class GameMaster : MonoBehaviour{
 
 	public int GameScore = 0;
 	public GameObject Candle_Prefab, Fan_Prefab, Sprinkler_Prefab;
-	public Transform Container_Trans, GameScore_Trans, Result_Trans;
+	public Transform Container_Trans, sprinkler_container, GameScore_Trans, Result_Trans;
 
 	private Coroutine main_routine_cor = null;
 
@@ -33,7 +33,7 @@ public class GameMaster : MonoBehaviour{
 			int r = Random.Range(0, 100);
 
 			// make item
-			if(r < 60){
+			if(r < 65){
 				make_candle();
 			}else if(r < 70){
 				make_driver();
@@ -62,9 +62,10 @@ public class GameMaster : MonoBehaviour{
 				candle_transes.Add(tmp);
 			}
 		}
-		candle_transes.OrderBy(_ => System.Guid.NewGuid()).FirstOrDefault();
+		Transform target_candle = candle_transes.OrderBy(_ => System.Guid.NewGuid()).FirstOrDefault();
 
-		GameObject obj = Instantiate(Sprinkler_Prefab, Container_Trans);
+		GameObject obj = Instantiate(Sprinkler_Prefab, sprinkler_container);
+		obj.transform.localPosition = target_candle.localPosition;
 	}
 
 	public void make_driver(){
