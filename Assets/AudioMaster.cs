@@ -8,8 +8,6 @@ using DG.Tweening;
 
 public class AudioMaster : MonoBehaviour{
 
-  public AudioClip bgm_clip;
-
   public SerializableKeyPair<string, AudioClip>[] se_clips = default;
 
 	private void Start(){
