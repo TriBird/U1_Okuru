@@ -9,9 +9,11 @@ public class GameMaster : MonoBehaviour{
 
 	public int GameScore = 0;
 	public GameObject Candle_Prefab, Fan_Prefab, Sprinkler_Prefab;
-	public Transform Container_Trans, sprinkler_container, GameScore_Trans, Result_Trans;
+	public Transform Container_Trans, sprinkler_container, GameScore_Trans, Result_Trans, Temprature_gain_banner_Trans, Fire_indicator_Trans;
 
 	private Coroutine main_routine_cor = null;
+
+	public int CurrentTempratureLevel = 1;
 
 	void Start(){
 		game_init();
@@ -21,6 +23,19 @@ public class GameMaster : MonoBehaviour{
 	public void score_increment(int score){
 		GameScore += score;
 		GameScore_Trans.GetComponent<Text>().text = "SCORE: " + GameScore;
+
+		int before = CurrentTempratureLevel;
+		CurrentTempratureLevel = Mathf.FloorToInt((float)GameScore / 6000) + 1;
+		if(before != CurrentTempratureLevel){
+			Sequence banner_display_seq = DOTween.Sequence();
+			banner_display_seq.Append(Temprature_gain_banner_Trans.DOLocalMoveX(-380f, 0.5f));
+			banner_display_seq.Append(Temprature_gain_banner_Trans.DOLocalMoveX(-585f, 0.5f).SetDelay(1.0f));
+		}
+
+		// show temprature level as fire icon
+		for(int i=0; i<CurrentTempratureLevel-1; i++){
+			Fire_indicator_Trans.GetChild(i).gameObject.SetActive(true);
+		}
 	}
 
 	public void game_init(){
