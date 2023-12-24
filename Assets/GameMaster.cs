@@ -8,8 +8,8 @@ using DG.Tweening;
 public class GameMaster : MonoBehaviour{
 
 	public int GameScore = 0;
-	public GameObject Candle_Prefab, Fan_Prefab;
-	public Transform Container_Trans, GameScore_Trans, Result_Trans;
+	public GameObject Candle_Prefab, Fan_Prefab, Sprinkler_Prefab;
+	public Transform Container_Trans, sprinkler_container, GameScore_Trans, Result_Trans;
 
 	private Coroutine main_routine_cor = null;
 
@@ -31,14 +31,45 @@ public class GameMaster : MonoBehaviour{
 		while(true){
 			yield return new WaitForSeconds(1.5f);
 			int r = Random.Range(0, 100);
-			if(r < 70){
+
+			// make item
+			if(r < 65){
 				make_candle();
+			}else if(r < 70){
+				make_driver();
 			}else{
 				make_fan();
 			}
 
+			// make disaster
+			int d = Random.Range(0, 100);
+			if(d < 10){
+				disaster_sprinkler();
+			}
+
 			check_gameover();
 		}
+	}
+
+	/// <summary>
+	/// Placing sprinklers in candle positions.
+	/// </summary>
+	public void disaster_sprinkler(){
+		// decide one of candle
+		List<Transform> candle_transes = new List<Transform>();
+		foreach(Transform tmp in Container_Trans){
+			if(tmp.GetComponent<Candle_ctrl>()){
+				candle_transes.Add(tmp);
+			}
+		}
+		Transform target_candle = candle_transes.OrderBy(_ => System.Guid.NewGuid()).FirstOrDefault();
+
+		GameObject obj = Instantiate(Sprinkler_Prefab, sprinkler_container);
+		obj.transform.localPosition = target_candle.localPosition;
+	}
+
+	public void make_driver(){
+
 	}
 
 	public void make_candle(){

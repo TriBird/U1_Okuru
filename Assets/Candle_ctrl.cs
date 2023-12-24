@@ -11,6 +11,7 @@ public class Candle_ctrl : MonoBehaviour{
 	public bool is_turn_on = false; // whether the candles are lit
 	private int melt_count = 200;
 	private int melt_count_max = 200;
+	private Coroutine melt_down_cor;
 
 	void Start(){
 		if(debug_on) debug_on_true();
@@ -21,16 +22,23 @@ public class Candle_ctrl : MonoBehaviour{
 	}
 
 	public void turn_on_candle(){
+		if(is_turn_on) return;
 		is_turn_on = true;
 		transform.GetComponent<Image>().sprite = Resources.Load<Sprite>("Candle_On");
-		StartCoroutine(candle_melt());
+		melt_down_cor = StartCoroutine(candle_melt());
+	}
+
+	public void turn_off_candle(){
+		if(!is_turn_on) return;
+		is_turn_on = false;
+		transform.GetComponent<Image>().sprite = Resources.Load<Sprite>("Candle_Off");
+		StopCoroutine(melt_down_cor);
 	}
 
 	public IEnumerator candle_melt(){
 		while(true){
 			yield return new WaitForSeconds(0.1f);
-			// melt_count--;
-			melt_count-=10;
+			melt_count--;
 			
 			transform.GetComponent<Image>().fillAmount = (float)melt_count / melt_count_max;
 
