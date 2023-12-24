@@ -27,7 +27,7 @@ public class Fan_ctrl: MonoBehaviour, IPointerClickHandler{
 			yield return new WaitForSeconds(0.01f);
 			transform.Find("arrow").localPosition = new Vector2(50*Mathf.Sin(degree*Mathf.Deg2Rad), 50*Mathf.Cos(degree*Mathf.Deg2Rad)+15f);
 			transform.Find("arrow").localRotation = Quaternion.Euler(new Vector3(0,0,-degree));
-			degree+=2;
+			degree+=3;
 		}
 	}
 

@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
+using unityroom.Api;
 
 public class GameMaster : MonoBehaviour{
 
@@ -14,6 +16,19 @@ public class GameMaster : MonoBehaviour{
 	private Coroutine main_routine_cor = null;
 
 	public int CurrentTempratureLevel = 1;
+
+	public List<string> titles = new List<string>(){
+		"かかし",
+		"番犬",
+		"警備員",
+		"守護者",
+		"ガーディアン",
+		"イージス",
+		"防衛機構",
+		"守護神",
+		"Candle Keeper",
+		"Eternal Candle Keeper",
+	};
 
 	void Start(){
 		game_init();
@@ -40,6 +55,9 @@ public class GameMaster : MonoBehaviour{
 
 	public void game_init(){
 		main_routine_cor = StartCoroutine(main_routine());
+
+		Result_Trans.GetComponent<CanvasGroup>().alpha = 0;
+		Result_Trans.gameObject.SetActive(false);
 	}
 
 	public IEnumerator main_routine(){
@@ -48,10 +66,10 @@ public class GameMaster : MonoBehaviour{
 			int r = Random.Range(0, 100);
 
 			// make item
-			if(r < 65){
+			if(r < 67){
 				make_candle();
 			}else if(r < 70){
-				make_driver();
+				// no production
 			}else{
 				make_fan();
 			}
@@ -83,10 +101,6 @@ public class GameMaster : MonoBehaviour{
 		obj.transform.localPosition = target_candle.localPosition;
 	}
 
-	public void make_driver(){
-
-	}
-
 	public void make_candle(){
 		GameObject obj = Instantiate(Candle_Prefab, Container_Trans);
 	}
@@ -111,10 +125,25 @@ public class GameMaster : MonoBehaviour{
 		}
 	}
 
+	public void Retry(){
+		SceneManager.LoadScene("SampleScene");
+	}
+
 	public void gameover_proc(){
 		StopCoroutine(main_routine_cor);
 		Result_Trans.GetComponent<CanvasGroup>().alpha = 0;
 		Result_Trans.gameObject.SetActive(true);
 		Result_Trans.GetComponent<CanvasGroup>().DOFade(1, 0.5f);
+
+		int title_number = Mathf.FloorToInt(GameScore / 10000);
+		if(title_number >= 10){
+			title_number = 9;
+		}
+
+		Result_Trans.Find("Score").GetComponent<Text>().text = "SCORE " + GameScore;
+		Result_Trans.Find("Rank").GetComponent<Text>().text = "Your rank: " + titles[title_number];
+		
+		// send score to leaderboard with unityroom api
+		UnityroomApiClient.Instance.SendScore(1, GameScore, ScoreboardWriteMode.HighScoreDesc);
 	}
 }
