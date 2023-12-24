@@ -617,12 +617,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   se_clips:
   - key: Click
-    value: {fileID: 0}
+    value: {fileID: 8300000, guid: f339603941480dc498d680be23d490a2, type: 3}
   - key: Fire
     value: {fileID: 0}
   - key: Water
     value: {fileID: 0}
   - key: Blow
+    value: {fileID: 0}
+  - key: Place
     value: {fileID: 0}
 --- !u!4 &706591521
 Transform:
