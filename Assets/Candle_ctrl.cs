@@ -26,6 +26,7 @@ public class Candle_ctrl : MonoBehaviour{
 
 	public void turn_on_candle(){
 		if(is_turn_on) return;
+		if(master.audio_master) master.audio_master.SE_Play("Fire");
 		is_turn_on = true;
 		transform.GetComponent<Image>().sprite = Resources.Load<Sprite>("Candle_On");
 		melt_down_cor = StartCoroutine(candle_melt());

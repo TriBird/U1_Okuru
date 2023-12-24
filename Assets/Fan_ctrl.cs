@@ -12,8 +12,10 @@ public class Fan_ctrl: MonoBehaviour, IPointerClickHandler{
 	private Coroutine col;
 	private float degree = 0;
 	private bool is_rotate = false;
+	private GameMaster master;
 
 	void Start(){
+		master = GameObject.Find("ScriptMaster").GetComponent<GameMaster>();
 	}
 
 	public void display_rotate_arrow(){
@@ -34,6 +36,7 @@ public class Fan_ctrl: MonoBehaviour, IPointerClickHandler{
 	public void OnPointerClick(PointerEventData eventData){
 		if(!is_rotate) return;
 		StopCoroutine(col);
+		master.audio_master.SE_Play("Blow");
 
 		transform.Find("wind").gameObject.SetActive(true);
 		transform.Find("wind").DOLocalMove(new Vector2(1000*Mathf.Sin(degree*Mathf.Deg2Rad), 1000*Mathf.Cos(degree*Mathf.Deg2Rad)+15f), 2.0f).OnComplete(()=>{
