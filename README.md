@@ -5,7 +5,7 @@ Unity1Week お題「おくる」 投稿作品
 
 [ゲームプレイはこちら](https://unityroom.com/games/candle_keeper)
 
-## ゲーム紹介
+## 📚ゲーム紹介
 あなたは新人の守護ゴーレム。
 聖夜に行われる魔物の査定に直面している。
 一本の火を灯したキャンドルをどれだけ長く保てるかが守護者としての格付けとなる。
@@ -16,11 +16,11 @@ Unity1Week お題「おくる」 投稿作品
 あなたは無事「かかし・ゴーレム」のような情けない称号から逃れられるのか…！
 負けられない戦いが今始まる。
 
-## 操作方法
+## 🖱️操作方法
 ドラッグ＆ドロップ：ベルトコンベアからアイテムを配置する  
 クリック：扇風機の風の方向の決定
 
-## License
+## 🎁Used assets
 [DOTween-v2](https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676?locale=ja-JP)  
 [DOVA-SYNDROME](https://dova-s.jp/)  
 [効果音ラボ](https://soundeffect-lab.info/)
